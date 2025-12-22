@@ -21,6 +21,7 @@ Las tareas se marcan como pendientes (`[❌]`) o completadas (`[✅]`).
 * **ON PROGRESS:**
     * [❌] completar readme del repo con formato.
     * [❌] completar readme del **api** con formato e informacion.
+    * [❌] `clean DDD` enfocado en features(modules)
 
 * **DONE:**
     * [✅] arquitectura backend `NestJS` con hello world. 

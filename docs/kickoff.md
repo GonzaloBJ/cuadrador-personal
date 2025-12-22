@@ -1,4 +1,71 @@
 tengo una idea de app web para uso personal, se trata de un registro de gastos para llevar mis finanzas del mes durante el año, pensaba en usa nest.js para el backend, json para almacenar los datos, y angular para el frontend donde muestro una planilla o grilla donde se pueden ver los gastos por categoria y mes, pero estoy en duda si  esa arquitectura es la mas optima pensando en un proyecto que es de uso personal y no publico, que otras arquitecturas me surgieres para este tipo de aplicacion? por ahi me mencionaron que debia hacer un monolito solo en angular, que sugieres?
+
+
+---
+## Requerimientos:
+* gasto (nombre, valor, categorias, fecha(mes, año), grupoGasto)
+* gastoAutoasignado (nombre, valor, categoria) -> se asgina al mes actual, grupoGasto segun nombre asignado
+* cuadraturaAnual (muestra el formato clasico por año)
+* cuadraturaMensual (acota al mes)
+* cuadraturaCategoria (por defecto muestra el mes actual, permite mostrar todo el año o uno especifico)
+* presupuesto/plan (pemite hacer calculos de proyectos y genera un resultado en formato Gasto)
+---
+
+---
+## Estructura de carpetas (clean DDD):
+
+src/
+├── app.module.ts          # Módulo raíz que orquestra todo
+├── main.ts                # Punto de entrada de la aplicación
+├── core/                  # Lógica transversal (guards, interceptors, etc.)
+└── modules/               # Capa de Características (Features)
+    └── users/             # Ejemplo de un módulo de "Usuarios"
+        ├── domain/        # Capa de Dominio (Corazón de la app)
+        │   ├── models/    # Entidades puras de negocio
+        │   ├── ports/     # Interfaces de repositorios/servicios (Abstracciones)
+        │   └── value-objs/# Objetos de valor
+        ├── application/   # Capa de Aplicación (Casos de Uso)
+        │   ├── use-cases/ # Lógica de acciones específicas (CreateUser, etc.)
+        │   └── dtos/      # Objetos de transferencia de datos
+        ├── infrastructure/# Capa de Infraestructura (Detalles técnicos)
+        │   ├── persistence/ # Implementación de Repositorios (TypeORM, Prisma)
+        │   │   └── entities/# Esquemas de BD
+        │   └── external-services/ # APIs externas, Email, etc.
+        └── interface/     # Capa de Entrada (Controladores)
+            ├── controllers/
+            └── presenters/
+
+
+
+## Descripción de las Capas
+1. Capa de Dominio (domain/)
+Es la más interna. Aquí defines qué es un "Usuario" para tu negocio.
+
+Entidades: Clases simples de TypeScript que contienen la lógica de negocio.
+
+Ports (Interfaces): Defines qué necesita el dominio para funcionar (ej: IUserRepository). No importa si usas MongoDB o PostgreSQL; aquí solo defines el "contrato".
+
+2. Capa de Aplicación (application/)
+Aquí residen los Casos de Uso.
+
+Actúa como orquestador. Llama a los repositorios (usando las interfaces del dominio) para realizar acciones específicas.
+
+Es donde inyectarás los servicios definidos en los puertos.
+
+3. Capa de Infraestructura (infrastructure/)
+Aquí es donde NestJS interactúa con el mundo exterior.
+
+Contiene la implementación real de las interfaces del dominio. Por ejemplo, TypeOrmUserRepository que implementa IUserRepository.
+
+Si mañana decides cambiar TypeORM por Prisma, solo tocas esta carpeta.
+
+4. Capa de Interfaz / Adaptadores (interface/)
+Controllers: Reciben las peticiones HTTP, validan los datos de entrada y llaman a los Casos de Uso.
+
+Esta capa es la que "usa" NestJS más activamente (@Controller, @Get, etc.).
+
+---
+
 ChatGPT Plus
 
 Si el objetivo es uso personal, cero usuarios externos, y mínimo mantenimiento, entonces tu mayor enemigo no es la performance… es la complejidad innecesaria.
