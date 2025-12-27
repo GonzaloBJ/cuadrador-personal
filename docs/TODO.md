@@ -11,20 +11,37 @@ solo un front para mostrar por mes e insertar, manejar datos por api recibiendo 
 Las tareas se marcan como pendientes (`[❌]`) o completadas (`[✅]`).
 
 * **BACKLOG:**
-    * [❌] arquitectura frontend `HTML + JS` muy basico **como parte del backend** con hello world.
-    * [❌] arquitectura modelo datos por `SQLite`.
+    * [❌] arquitectura frontend `Angular PWA` muy basico.
     * [❌] repository pattern para el acceso a datos y CRUD (jsonRepo, redisRepo).
     * [❌] strategy pattern para la carga de datos (formBulkInsertStrategy, JsonBulkInsertStrategy).
-    * [❌] usar IndexedDB (permite repaldos json) y se pude hostear en github-pages y vercel.
     * [❌] transformar a PWA para usar desde el PC.
+    * [❌] metodos CRUDL para gastoMensual(monthlyReport).
+    * [❌] metodos CRUDL para gastosAnuales(AnnualReport).
+    * [❌] metodos CRUDL para planes(budgets).
+    * [❌] vista de gastos anual.
+    * [❌] vista de gastos mens/categoria.
+    * [❌] DTOs gastoAnual.
+    * [❌] mappers gastoAnual.
+    * [❌] repository gastoAnual.
+    * [❌] schema-types gastoAnual.
+    * [❌] DTOs gastoMesual.
+    * [❌] mappers gastoMensual.
+    * [❌] repository gastoMensual.
+    * [❌] schema-types gastoMensual.
 
 * **ON PROGRESS:**
     * [❌] completar readme del repo con formato.
     * [❌] completar readme del **api** con formato e informacion.
-    * [❌] `clean DDD` enfocado en features(modules)
+    * [❌] `clean DDD` enfocado en features(modules).
+    * [❌] DTOs gastos.
 
 * **DONE:**
     * [✅] arquitectura backend `NestJS` con hello world. 
+    * [✅] modelo datos basico por `SQLite`.
+    * [✅] metodos CRUDL para gastos(expenses).
+    * [✅] mappers gastos.
+    * [✅] repository gastos.
+    * [✅] schema-types gastos.
 
 ---
 

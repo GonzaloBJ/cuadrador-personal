@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Cuadratura Mensual de Gastos</title>
+</head>
+
+<body>
+  <div class="grid">
+    <h1>Cuadratura {{ mes }} - {{ anio }}</h1>
+
+    <section class="card">
+      <h3>Gastos registrados</h3>
+      <table id="tablaGastos">
+        <thead>
+          <tr>
+            <th>📝 Descripción</th>
+            <th>💲 Monto (CLP)</th>
+            <th>🔖 Categoria</th>
+            <th>💸 Tipo Gasto</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+        <tfoot>
+          <tr>
+            <td colspan="3">Total</td>
+            <td id="footerTotal">$0</td>
+            <td></td>
+          </tr>
+        </tfoot>
+      </table>
+    </section>
+  </div>
+</body>
+
+</html>
