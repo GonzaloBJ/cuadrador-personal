@@ -34,6 +34,7 @@ Las tareas se marcan como pendientes (`[❌]`) o completadas (`[✅]`).
     * [❌] completar readme del **api** con formato e informacion.
     * [❌] `clean DDD` enfocado en features(modules).
     * [❌] DTOs gastos.
+    * [❌] Metodo update gasto.
 
 * **DONE:**
     * [✅] arquitectura backend `NestJS` con hello world. 
@@ -42,6 +43,8 @@ Las tareas se marcan como pendientes (`[❌]`) o completadas (`[✅]`).
     * [✅] mappers gastos.
     * [✅] repository gastos.
     * [✅] schema-types gastos.
+    * [✅] metodo agregar gasto desde json.
+    * [✅] metodo eliminar from to.
 
 ---
 

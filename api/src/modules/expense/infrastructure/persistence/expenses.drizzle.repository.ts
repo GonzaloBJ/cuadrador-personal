@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { expenses } from '../../../../db/schema';
-import { eq } from 'drizzle-orm';
+import { between, eq } from 'drizzle-orm';
 import { IExpensesRepository } from '../../domain/repositories/expenses.repository.interface';
 import { LibSQLDatabase } from 'drizzle-orm/libsql';
 import { DRIZZLE } from 'src/db/db.module';
@@ -12,8 +12,8 @@ import { ExpenseMapper } from '../mappers/expense.mapper';
 export class ExpensesDrizzleRepository implements IExpensesRepository {
     constructor(
         @Inject(DRIZZLE) private db: LibSQLDatabase<typeof schema>
-      ) {}
-      
+    ) { }
+
     async findAll(): Promise<Expense[]> {
         const raw = await this.db.select().from(schema.expenses);
         return ExpenseMapper.toDomainList(raw);
@@ -25,6 +25,7 @@ export class ExpensesDrizzleRepository implements IExpensesRepository {
     }
 
     async create(data: Expense): Promise<Expense> {
+        console.log('Creating expense:', data);
         const persistenceData = ExpenseMapper.toPersistence(data);
         const raw = await this.db
             .insert(expenses)
@@ -34,9 +35,21 @@ export class ExpensesDrizzleRepository implements IExpensesRepository {
         return ExpenseMapper.toDomain(raw[0]);
     }
 
-    async delete(id: number): Promise<void> {
-        await this.db
+    async delete(id: number): Promise<{ deletedId: number }[]> {
+        return await this.db
             .delete(expenses)
-            .where(eq(expenses.id, id));
+            .where(eq(expenses.id, id))
+            .returning({
+                deletedId: expenses.id
+            });
+    }
+
+    async deleteRange(idFrom: number, idTo: number): Promise<{ deletedId: number }[]> {
+        return await this.db
+            .delete(expenses)
+            .where(between(expenses.id, idFrom, idTo))
+            .returning({
+                deletedId: expenses.id
+            });
     }
 }

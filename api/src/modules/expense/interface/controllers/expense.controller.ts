@@ -1,8 +1,8 @@
-import { Controller, Get, Post, Delete, Body, Param } from '@nestjs/common';
+import { Controller, Get, Post, Delete, Body, Param, Query } from '@nestjs/common';
 import { ExpenseService } from '../../application/use-cases/expense.service';
 
 
-@Controller('expense')
+@Controller('expenses')
 export class ExpenseController {
   constructor(private readonly service: ExpenseService) {}
 
@@ -24,5 +24,15 @@ export class ExpenseController {
   @Delete(':id')
   remove(@Param('id') id: number) {
     return this.service.deleteExpense(id);
+  }
+
+  @Delete()
+  removeFromTo(@Query('from') from: number, @Query('to') to: number) {
+    return this.service.deleteExpenseFromTo(from, to);
+  }
+
+  @Post('from-value-array')
+  fromValueArray(@Body() dto: string[][]) {
+    return this.service.createExpenseFromValueArray(dto);
   }
 }
