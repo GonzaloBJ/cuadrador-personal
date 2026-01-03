@@ -22,7 +22,7 @@ DELETE http://localhost:3000/expenses/5
 Accept: application/json
 
 ### delete from id to id expense
-DELETE http://localhost:3000/expenses?from=0&to=12
+DELETE http://localhost:3000/expenses?from=13&to=17
 Accept: application/json
 
 ### create expense from json file
@@ -30,9 +30,8 @@ POST http://localhost:3000/expenses/from-value-array
 Content-Type: application/json
 
 [
-	[ "Arriendo", "0", "Servicios", "Fijo", "2026-01-01"],
-	[ "Gasto Comun", "0", "Servicios", "Fijo", "2026-01-01"],
-	[ "CAE", "0", "Servicios", "Fijo", "2026-01-01"],
-	[ "Banco Falabella", "0", "Credito", "Fijo", "2026-01-01"],
-	[ "Banco Chile", "0", "Credito", "Fijo", "2026-01-01"]
+	[ "Arriendo", "443520", "Servicios", "Fijo", "2026-01-03"],
+	[ "Gasto Comun", "100611", "Servicios", "Fijo", "2026-01-03"],
+	[ "Banco Falabella", "189700", "Credito", "Fijo", "2026-01-03"],
+	[ "Banco Chile", "63065", "Credito", "Fijo", "2026-01-03"]
 ]
