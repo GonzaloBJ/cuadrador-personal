@@ -30,8 +30,8 @@ POST http://localhost:3000/expenses/from-value-array
 Content-Type: application/json
 
 [
-	[ "Arriendo", "443520", "Servicios", "Fijo", "2026-01-03"],
-	[ "Gasto Comun", "100611", "Servicios", "Fijo", "2026-01-03"],
-	[ "Banco Falabella", "189700", "Credito", "Fijo", "2026-01-03"],
-	[ "Banco Chile", "63065", "Credito", "Fijo", "2026-01-03"]
+	[ "Lider s1", "70760", "Supermercado", "Variable", "2026-01-03"],
+  [ "Almacen s1", "7600", "Supermercado", "Variable", "2026-01-03"],
+  [ "Cosas chinas", "16940", "Otros", "Variable", "2026-01-03"],
+  [ "Pizzeria Alleria", "31480", "Entretenimiento", "Variable", "2026-01-03"]
 ]
