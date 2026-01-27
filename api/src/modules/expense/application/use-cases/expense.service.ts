@@ -1,7 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import * as expensesRepositoryInterface from '../../domain/repositories/expenses.repository.interface';
 import { Expense } from '../../domain/models/expense.model';
-import { start } from 'node:repl';
 
 
 @Injectable()

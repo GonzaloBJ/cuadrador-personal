@@ -7,7 +7,7 @@ GET http://localhost:3000/expenses/5
 Accept: application/json
 
 ### expenses paginated
-GET http://localhost:3000/expenses/paginated/1/10 
+GET http://localhost:3000/expenses/paginated/1/5
 Accept: application/json
 
 

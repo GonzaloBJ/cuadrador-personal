@@ -1,7 +1,8 @@
 import type { Expense } from '../types/expense.type';
+import type { PaginatedResult } from '../types/paginated-result.type';
 
 type Props = {
-  expenses: Expense[];
+  expenses: PaginatedResult<Expense>;
 };
 
 export function ExpensesTable({ expenses }: Props) {
@@ -19,7 +20,7 @@ export function ExpensesTable({ expenses }: Props) {
           </tr>
         </thead>
         <tbody>
-          {expenses.map(u => (
+          {expenses.data.map(u => (
             <tr key={u.id}>
               <td>{u.id}</td>
               <td>{u.description}</td>

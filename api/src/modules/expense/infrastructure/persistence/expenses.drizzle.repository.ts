@@ -34,11 +34,11 @@ export class ExpensesDrizzleRepository implements IExpensesRepository {
         const offset = (page - 1) * limit;
 
         const [data, totalResult] = await Promise.all([
-            this.db.select()
-                .from(schema.expenses)
-                .limit(limit)
-                .offset(offset)
-                .all(),
+            this.db.query.expenses.findMany({
+                limit: limit,
+                offset: offset,
+                orderBy : (expense, { desc }) => [desc(expense.id)],
+            }),
             this.db.select({ value: count() })
                 .from(schema.expenses)
         ]);

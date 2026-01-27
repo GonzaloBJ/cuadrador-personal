@@ -1,9 +1,8 @@
-import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import type { RootState, AppDispatch } from '../../../app/store';
 import {
-    fetchExpenses,
     createExpenseThunk,
+    fetchExpensesThunk,
 } from '../store/expenses.thunks';
 
 type CreateExpenseInput = {
@@ -20,9 +19,9 @@ export function useExpenses() {
         (state: RootState) => state.expenses
     );
 
-    useEffect(() => {
-        dispatch(fetchExpenses());
-    }, [dispatch]);
+    const fetchExpenses = (params: { page: number; limit: number }) => {
+        dispatch(fetchExpensesThunk(params));
+    };
 
     const createExpense = (data: CreateExpenseInput) => {
         dispatch(createExpenseThunk(data));
@@ -33,5 +32,6 @@ export function useExpenses() {
         loading,
         error,
         createExpense,
+        fetchExpenses
     };
 }

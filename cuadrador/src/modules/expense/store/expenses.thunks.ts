@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { createExpense, getExpenses } from '../services/expenses.service';
+import { createExpense, getExpensesPaginated } from '../services/expenses.service';
 import type { Expense } from '../types/expense.type';
+import type { PaginatedResult } from '../types/paginated-result.type';
 
 type CreateExpensePayload = {
     description: string;
@@ -9,17 +10,22 @@ type CreateExpensePayload = {
     billType: string;
 };
 
-export const fetchExpenses = createAsyncThunk<
-    Expense[],
-    void,
+type FetchAllExpensesPayload = {
+    page: number,
+    limit: number,
+};
+
+export const fetchExpensesThunk = createAsyncThunk<
+    PaginatedResult<Expense>,
+    FetchAllExpensesPayload,
     { rejectValue: string }
 >(
     'expenses/fetchAll',
-    async (_, { rejectWithValue }) => {
+    async (payload, { rejectWithValue }) => {
         try {
-            return await getExpenses();
+            return await getExpensesPaginated(payload.page, payload.limit);
         } catch (err: any) {
-            return rejectWithValue(err.message ?? 'Error loading expenses');
+            return rejectWithValue(err.message ?? 'Error cangando gastos.');
         }
     }
 );
@@ -34,7 +40,7 @@ export const createExpenseThunk = createAsyncThunk<
         try {
             return await createExpense(payload);
         } catch (err: any) {
-            return rejectWithValue(err.message ?? 'Error creating expense');
+            return rejectWithValue(err.message ?? 'Error creando gastos.');
         }
     }
 );
