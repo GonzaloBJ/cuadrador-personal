@@ -6,15 +6,20 @@ Accept: application/json
 GET http://localhost:3000/expenses/5
 Accept: application/json
 
+### expenses paginated
+GET http://localhost:3000/expenses/paginated/1/10 
+Accept: application/json
+
+
 ### create expense
 POST http://localhost:3000/expenses
 Content-Type: application/json
 
 {
-  "description": "TEST",
-  "amount": 3000,
+  "description": "Internet hogar y mobil",
+  "amount": 38,
   "category": "Servicios",
-  "billType": "Mensual"
+  "billType": "Fijo"
 }   
 
 ### delete expense
@@ -30,8 +35,8 @@ POST http://localhost:3000/expenses/from-value-array
 Content-Type: application/json
 
 [
-	[ "Lider s1", "70760", "Supermercado", "Variable", "2026-01-03"],
-  [ "Almacen s1", "7600", "Supermercado", "Variable", "2026-01-03"],
-  [ "Cosas chinas", "16940", "Otros", "Variable", "2026-01-03"],
-  [ "Pizzeria Alleria", "31480", "Entretenimiento", "Variable", "2026-01-03"]
+	[ "Super soda completos", "17006", "Comida", "Variable", "2026-01-11"],
+  [ "Decathlon natacion cosas", "34000", "Ropa y Accesorios", "Variable", "2026-01-11"],
+  [ "Lider s2", "112024", "Supermercado", "Variable", "2026-01-11"],
+	[ "Giro", "40000", "Banco", "Variable", "2026-01-11"]
 ]

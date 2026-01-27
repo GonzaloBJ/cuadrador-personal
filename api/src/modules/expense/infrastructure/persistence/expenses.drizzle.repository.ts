@@ -1,12 +1,13 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { expenses } from '../../../../db/schema';
-import { between, eq } from 'drizzle-orm';
+import { between, count, eq } from 'drizzle-orm';
 import { IExpensesRepository } from '../../domain/repositories/expenses.repository.interface';
 import { LibSQLDatabase } from 'drizzle-orm/libsql';
 import { DRIZZLE } from 'src/db/db.module';
 import * as schema from '../../../../db/schema';
 import { Expense } from '../../domain/models/expense.model';
 import { ExpenseMapper } from '../mappers/expense.mapper';
+import { PaginatedResult } from 'src/core/DTOs/paginated-result.dto';
 
 @Injectable()
 export class ExpensesDrizzleRepository implements IExpensesRepository {
@@ -16,7 +17,42 @@ export class ExpensesDrizzleRepository implements IExpensesRepository {
 
     async findAll(): Promise<Expense[]> {
         const raw = await this.db.select().from(schema.expenses);
+
+        // const raw = await this.db.query.expenses.findMany({
+        //     with: {
+        //     reports: true, // Esto trae automáticamente los monthlyReports vinculados
+        //     },
+        // });
+
         return ExpenseMapper.toDomainList(raw);
+    }
+
+    async findAllPaginated(
+        page: number,
+        limit: number,
+    ): Promise<PaginatedResult<Expense>> {
+        const offset = (page - 1) * limit;
+
+        const [data, totalResult] = await Promise.all([
+            this.db.select()
+                .from(schema.expenses)
+                .limit(limit)
+                .offset(offset)
+                .all(),
+            this.db.select({ value: count() })
+                .from(schema.expenses)
+        ]);
+
+        const total = totalResult[0].value;
+        const totalPages = Math.ceil(total / limit);
+
+        return {
+            data: data.map(ExpenseMapper.toDomain),
+            page,
+            limit,
+            total,
+            totalPages
+        };
     }
 
     async findById(id: number): Promise<Expense | null> {

@@ -19,6 +19,10 @@ export class ExpenseService {
     return this.expenseRepo.findById(id);
   }
 
+  getExpensesPaginated(page: number, limit: number) {
+    return this.expenseRepo.findAllPaginated(page, limit);
+  }
+
   createExpense(dto: Expense) {
     return this.expenseRepo.create(dto);
   }

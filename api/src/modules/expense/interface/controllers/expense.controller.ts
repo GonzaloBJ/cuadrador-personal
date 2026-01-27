@@ -16,6 +16,11 @@ export class ExpenseController {
     return this.service.getExpenseById(id);
   }
 
+  @Get('paginated/:page/:limit')
+  getAllPaginated(@Param('page') page: number, @Param('limit') limit: number) {
+    return this.service.getExpensesPaginated(page, limit);
+  }
+
   @Post()
   create(@Body() dto: any) {
     return this.service.createExpense(dto);
