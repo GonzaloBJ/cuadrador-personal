@@ -6,7 +6,7 @@ export class AppController {
   ) {}
 
   @Get('/ui')
-  @Render('index')
+  @Render('cuadraturaMensual')
   getUI() {
     // return { message: 'hola mundo!' };
     return;
